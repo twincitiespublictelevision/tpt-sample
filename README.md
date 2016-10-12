@@ -1,13 +1,20 @@
 # tpt-sample
 The sample project is based on the [Lumen Framework](https://lumen.laravel.com). Lumen is a paired-down version of the larger [Laravel Framework](https://laravel.com). The [Lumen Documentation](https://lumen.laravel.com/docs/5.3) covers the needed information for working on this project.
 
+## Requirements
+The requirements for this project are derived from the requirements of the Lumen project. They should all be available with most recent PHP installations. [XAMPP](https://www.apachefriends.org/index.html) is a self contained server package that can be used if needed to run the project.
+* PHP >= 5.6.4
+* OpenSSL PHP Extension
+* PDO PHP Extension
+* Mbstring PHP Extension
+
 ## Setup
 1. Clone the tpt-sample repo
 2. Add the following record to the computers host file:
     ```
     199.167.77.39   dev-api.tpt.org
     ```
-3. Update local server settings to point to the /public directory
+3. Update local server settings to point a url at the /public directory
 
 ## Project Structure
 There are three main areas that are of interest.
