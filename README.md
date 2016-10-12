@@ -9,6 +9,13 @@ The sample project is based on the [Lumen Framework](https://lumen.laravel.com).
     ```
 3. Update local server settings to point to the /public directory
 
+## Project Structure
+* There are three main areas that are of interest.
+** routes/web.php - Routes defines the available endpoints that are exposed by the application
+** app/Http/Controllers - Controllers contains the controllers invoked by the routes
+** public - Public contains the files that are served to the end user
+** resources/views - Views contains the html files that are sent to the user 
+
 ## Schedule API Information
 There is a single endpoint of the schedule API that is of interest:
 
