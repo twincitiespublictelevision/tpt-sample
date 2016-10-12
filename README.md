@@ -16,7 +16,7 @@ The requirements for this project are derived from the requirements of the Lumen
     ```
 3. Update local server settings to point a url at the /public directory
 4. You should see the following index page
-![Screenshot](index-screenshot.jpg?raw=true "Screenshot of Sample Project Index")
+![Screenshot](index-screenshot-small.jpg?raw=true "Screenshot of Sample Project Index")
 
 ## Project Structure
 There are three main areas that are of interest.
