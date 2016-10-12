@@ -28,9 +28,9 @@ Some sample series names that you can use are:
 * Nature
 
 A sample request to the API may look like:
-```
-{
-  "title": "Almanac",
-  "channel": "2"
-}
+````
+POST http://dev-api.tpt.org/schedule/series
+Content-Type: application/json
+
+{"title": "Almanac", "channel": "2"}
 ```
