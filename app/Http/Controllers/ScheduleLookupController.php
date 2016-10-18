@@ -19,6 +19,12 @@ class ScheduleLookupController extends Controller {
     ]);
   }
 
+  // $show = 'almanac'
+
+  // POST http://dev-api.tpt.org/schedule/series
+  // Content-Type: application/json
+  // {"title": "Almanac", "channel": "2"}
+
   public function scheduleDataForShow($show) {
 
     //
