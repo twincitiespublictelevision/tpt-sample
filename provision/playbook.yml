@@ -1,0 +1,85 @@
+---
+
+- hosts: all
+  remote_user: vagrant
+
+  vars:
+    phpVersion: php-5.6.27
+
+  tasks:
+
+  - name: install dependencies
+    become: yes
+    apt: name={{ item }} update_cache=yes state=present
+    with_items:
+      - apache2
+      - apache2-dev
+      - libxml2-dev
+      - libcurl4-openssl-dev
+      - pkg-config
+
+  - name: disable uneeded apache modules
+    become: yes
+    apache2_module: name=mpm_event state=absent
+    notify: restart apache
+
+  - name: enable needed apache modules
+    become: yes
+    apache2_module: name={{ item }} state=present
+    with_items:
+      - mpm_prefork
+      - rewrite
+      - negotiation
+    notify: restart apache
+
+  - name: download php source files
+    get_url:
+      url: http://php.net/get/{{phpVersion}}.tar.gz/from/this/mirror
+      dest: /home/vagrant/{{phpVersion}}.tar.gz
+      checksum: md5:a1ca69f4d44fe83d3bb6f7c459ce512f
+
+  - name: unpack php source files
+    command: tar -xzf /home/vagrant/{{phpVersion}}.tar.gz
+    args:
+      creates: /home/vagrant/{{phpVersion}}
+
+  # NOTE: can't figure out why this isn't working
+  # - name: unpack php source files
+  #   unarchive:
+  #     src: /home/vagrant/{{phpVersion}}.tar.gz
+  #     dest: /home/vagrant/
+  #     create: /home/vagrant/{{phpVersion}}
+  #     remote_src: yes
+
+  - name: configure php build
+    command: ./configure --with-openssl --enable-mbstring --with-pdo-mysql --with-apxs2=/usr/bin/apxs2
+    args:
+      chdir: /home/vagrant/{{phpVersion}}
+      creates: /home/vagrant/{{phpVersion}}/config.log
+    register: php_build_config
+
+  - name: build php from source
+    make: chdir=/home/vagrant/{{phpVersion}}
+    when: php_build_config.changed == true
+    register: php_build
+
+  - name: install php
+    become: yes
+    make: chdir=/home/vagrant/{{phpVersion}} target=install
+    when: php_build.changed == true
+    notify: restart apache
+
+  - name: remove default vhost
+    become: yes
+    file: state=absent path=/etc/apache2/sites-enabled/000-default.conf
+
+  - name: configure apache virtual host
+    become: yes
+    file: state=link src=/vagrant/provision/vhost.conf dest=/etc/apache2/sites-enabled/vhost.conf
+    notify: restart apache
+
+  handlers:
+
+  - name: restart apache
+    become: yes
+    service: name=apache2 state=restarted
