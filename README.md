@@ -1,14 +1,15 @@
 # tpt-sample
 The sample project is based on the [Lumen Framework](https://lumen.laravel.com). Lumen is a paired-down version of the larger [Laravel Framework](https://laravel.com). The [Lumen Documentation](https://lumen.laravel.com/docs/5.3) covers the needed information for working on this project.
 
-## Requirements
+## XAMPP Environment
+### Requirements
 The requirements for this project are derived from the requirements of the Lumen project. They should all be available with most recent PHP installations. [XAMPP](https://www.apachefriends.org/index.html) is a self contained server package that can be used if needed to run the project.
 * PHP >= 5.6.4
 * OpenSSL PHP Extension
 * PDO PHP Extension
 * Mbstring PHP Extension
 
-## Setup
+### Setup
 1. Clone the tpt-sample repo
 2. Add the following record to the computers host file:
     ```
@@ -18,12 +19,26 @@ The requirements for this project are derived from the requirements of the Lumen
 4. You should see the following index page
 ![Screenshot](index-screenshot-small.jpg?raw=true "Screenshot of Sample Project Index")
 
+## Virtual Machine Environment
+### Requirements
+The following software will need to be installed locally on a macOS or Linux system in order to create a Vagrant managed VirtualBox virtual machine.
+* [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+* [Vagrant](https://www.vagrantup.com/downloads.html)
+* [Ansible](ansible install pip) - available via [Homebrew](http://brew.sh)
+
+### Setup
+1. Install required software
+2. Add the following line to your local `/etc/hosts` file: `199.167.77.39   dev-api.tpt.org`
+2. Open the root of this project in a terminal
+3. Run `vagrant up`
+4. Open [dev-api.tpt.org](http://dev-api.tpt.org) in your web browser
+
 ## Project Structure
 There are three main areas that are of interest.
 * routes/web.php - Routes defines the available endpoints that are exposed by the application
 * app/Http/Controllers - Controllers contains the controllers invoked by the routes
 * public - Public contains the files that are served to the end user
-* resources/views - Views contains the html files that are sent to the user 
+* resources/views - Views contains the html files that are sent to the user
 
 ## Schedule API Information
 There is a single endpoint of the schedule API that is of interest:
